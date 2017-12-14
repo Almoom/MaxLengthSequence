@@ -9,52 +9,53 @@ public class Main {
     public static void main(String[] args) {
 	    String a = new String("geekbrainsrules");
 	    String b = new String("versailles");
-	    char[][] arr = new char[b.length()+2][a.length()+2];
+	    b = "0"+b;
 		char[] aa = a.toCharArray();
 		char[] bb = b.toCharArray();
-		int[][] count = new int[b.length()][a.length()];
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr[i].length; j++) {
-				arr[i][j] = '0';
-			}
-		}
+		int[][] count = new int[b.length()+1][a.length()+1];
 		for (int i = 0; i < count.length; i++) {
 			for (int j = 0; j < count[i].length; j++) {
 				count[i][j] = 0;
 			}
 		}
-		for (int i = 2; i < arr.length; i++) {
-			arr[i][0] = bb[i-2];
-			for (int j = 2; j < arr[i].length; j++) {
-				arr[0][j] = aa[j-2];
-			}
+		System.out.print("0 0 ");
+		for (int i = 0; i < aa.length; i++) {
+			System.out.print(aa[i]+" ");
 		}
-		for (int i = 2; i < arr.length; i++) {
-			for (int j = 2; j < arr[i].length; j++) {
-				arr[i][j] = count[i-2][j-2];
-			}
-		}
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr[i].length; j++) {
-				System.out.print(arr[i][j]+" ");
+		System.out.println();
+		for (int i = 0; i < bb.length; i++) {
+			System.out.print(bb[i]+" ");
+			for (int j = 0; j < count[i].length; j++) {
+				System.out.print(count[i][j]+" ");
 			}
 			System.out.println();
 		}
 		System.out.println();
-		for (int i = 2; i < arr.length; i++) {
-			for (int j = 2; j < arr[i].length; j++) {
-				if (arr[i][0] == arr[0][j]){
-					if (Character.getNumericValue(arr[i][j-1]) == 0){
-						arr[i][j] = '1';
-					}
+		for (int i = 1; i < bb.length; i++) {
+			for (int j = 0; j < aa.length; j++) {
+				if (bb[i] == aa[j] && count[i-1][j+1] == 0){
+					count[i][j+1] = count[i][j] + 1;
+				}
+				if (bb[i] == aa[j] && count[i-1][j+1] > 0){
+					count[i][j+1] = count[i-1][j+1] + 1;
+				}
+				if (count[i][j+1] == 0 && count[i][j] > count[i][j+1]){
+					count[i][j+1] = count[i][j];
 				}
 			}
 		}
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr[i].length; j++) {
-				System.out.print(arr[i][j]+" ");
+		System.out.print("0 0 ");
+		for (int i = 0; i < aa.length; i++) {
+			System.out.print(aa[i]+" ");
+		}
+		System.out.println();
+		for (int i = 0; i < bb.length; i++) {
+			System.out.print(bb[i]+" ");
+			for (int j = 0; j < count[i].length; j++) {
+				System.out.print(count[i][j]+" ");
 			}
 			System.out.println();
 		}
+		System.out.println();
     }
 }
